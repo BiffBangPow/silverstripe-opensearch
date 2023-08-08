@@ -1,0 +1,21 @@
+---
+Name: bbp-silverstripe-opensearch
+After:
+  - 'silverstripe-search-service-dataobject'
+  - 'search-service-default'
+---
+SilverStripe\Core\Injector\Injector:
+  SilverStripe\SearchService\Service\IndexConfiguration:
+    constructor:
+      index_variant: 'OS'
+  SilverStripe\SearchService\Interfaces\IndexingInterface:
+    class: BiffBangPow\Search\Service\OpenSearchService
+    constructor:
+      configuration: '%$SilverStripe\SearchService\Service\IndexConfiguration'
+      builder: '%$SilverStripe\SearchService\Service\DocumentBuilder'
+  Elastic\EnterpriseSearch\Client:
+    factory: BiffBangPow\Search\Service\ClientFactory
+    constructor:
+      endpoints: '`OPENSEARCH_ENDPOINTS`'
+      user: '`OPENSEARCH_USER`'
+      password: '`OPENSEARCH_PASSWORD`'
