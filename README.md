@@ -66,7 +66,7 @@ SilverStripe\SearchService\Service\IndexConfiguration:
               options:
                 type: keyword
             link:
-              property: LinkForSearch
+              property: AbsoluteLink
               options:
                 type: keyword
             content:
@@ -78,6 +78,18 @@ SilverStripe\SearchService\Service\IndexConfiguration:
               options:
                 type: text
 ```
+
+## Indexing
+
+The search service depends on the [Silverstripe Queued Jobs](https://github.com/symbiote/silverstripe-queuedjobs/tree/4) module to deal with indexing.
+In order for this to work properly, it is strongly recommended that you set up a cron job / scheduled task to poll the jobs list and execute any jobs which have been queued (see the [queued jobs documentation](https://github.com/symbiote/silverstripe-queuedjobs/blob/4/docs/en/index.md) for more details.)
+
+A typical cron entry may look something like this:
+
+```
+*/1 * * * * /path/to/silverstripe/vendor/bin/sake dev/tasks/ProcessJobQueueTask
+```
+
 
 ## Searching
 
