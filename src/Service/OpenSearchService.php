@@ -192,6 +192,8 @@ class OpenSearchService implements IndexingInterface, BatchDocumentRemovalInterf
     {
         Injector::inst()->get(LoggerInterface::class)->info('Configuring opensearch');
 
+        $schemas = [];
+
         foreach (array_keys($this->getConfiguration()->getIndexes()) as $indexName) {
 
             Injector::inst()->get(LoggerInterface::class)->info('Index name: ' . $indexName);
